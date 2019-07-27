@@ -1,0 +1,35 @@
+---
+layout: default
+---
+
+<div class="container-fluid bg-gradient-light">
+    <div class="row" style="height: 6em;"></div>
+
+    <div class="row">
+        <div class="col-5"></div>
+        <div class="col-2">
+            <img src="/assets/images/detective-pikachu.jpg" class="rounded-circle" alt="Detective Pikachu"
+                style="height: 14em">
+        </div>
+        <div class="col-5"></div>
+    </div>
+
+    <div class="row" style="height: 9em;"></div>
+</div>
+
+<div class="">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark justify-content-center">
+        <ul class="navbar-nav">
+            {% for link in page.menu_links %}
+            {% assign link_values = link | split: ";" %}
+            {% assign name = link_values[0] %}
+            {% assign url = link_values[1] %}
+                <li class="nav-item">
+                    <a href="{{ url }}" class="nav-link">
+                        <h1>{{ name }}</h1>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+</div>
