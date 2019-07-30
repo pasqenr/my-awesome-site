@@ -33,7 +33,7 @@ sass:
 
 webp:
   enabled: true
-  img_dir: ["assets/images/gallery/"]
+  img_dir: ["assets/images/gallery/"] # Unused
   webp_path: "/usr/bin/"
 
 defaults:
@@ -42,6 +42,21 @@ defaults:
     values:
       image: true
       is_gallery_image: true
+
+collections:
+  details:
+    output: true
+
+exclude: [
+  "Gemfile", 
+  "Gemfile.lock", 
+  "vendor/bundle/", 
+  "vendor/cache/", 
+  "vendor/gems/", 
+  "vendor/ruby/",
+  "package.json",
+  "package-lock.json",
+]
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
