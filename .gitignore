@@ -1,6 +1,9 @@
 _site
 .sass-cache
 .jekyll-metadata
+/.idea
+/.vscode
+node_modules
 
 # Exclude private assets/images
 assets/images/**/*.jpg
@@ -12,7 +15,4 @@ assets/images/**/*.webp
 assets/images/**/*.gif
 
 /_sass/bootstrap
-
-/.idea
-/.vscode
-node_modules
+/_details/*
