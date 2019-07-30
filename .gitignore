@@ -9,9 +9,10 @@ assets/images/**/*.bmp
 assets/images/**/*.psd
 assets/images/**/*.tiff
 assets/images/**/*.webp
-assets/images/**/*.git
+assets/images/**/*.gif
 
 /_sass/bootstrap
 
 /.idea
 /.vscode
+node_modules
