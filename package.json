@@ -1,0 +1,25 @@
+{
+  "name": "my-awesome-site",
+  "version": "0.0.1",
+  "description": "An awesome site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/pasqenr/my-awesome-site.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/pasqenr/my-awesome-site/issues"
+  },
+  "homepage": "https://gitlab.com/pasqenr/my-awesome-site#readme",
+  "dependencies": {
+    "lg-fullscreen.js": "^1.1.0",
+    "lg-thumbnail.js": "^1.1.0",
+    "lg-zoom.js": "^1.0.1",
+    "lightgallery.js": "^1.1.3"
+  }
+}

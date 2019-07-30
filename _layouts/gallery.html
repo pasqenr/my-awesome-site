@@ -3,33 +3,26 @@ layout: default
 title: Gallery
 ---
 
-<div class="container bg-gradient-light">
-    <div class="row" style="height: 6em;"></div>
-
-    <div class="row" style="height: 14em;">
-        <div class="col-md-6 align-self-center border-right text-md-center">
-            <img src="/assets/images/detective-pikachu.jpg" class="rounded-circle" alt="Detective Pikachu"
-                style="height: 14em">
-        </div>
-
-        <div class="col-md-6 align-self-start">
-            <div style="height: 14em; width: auto; overflow: overlay; list-style-type: none;">
-                {{ content }}
-            </div>
-        </div>
-    </div>
-
-    <div class="row" style="height: 6em;"></div>
+<div class="container-fluid">
+    <div class="row" style="height: 2rem;"></div>
 
     <div class="row justify-content-center">
-        <div class="col-md-auto">
-                {% assign images = site.static_files | where: "image", true | where: "is_gallery_image", true | where_exp: "item", "item.extname == '.png'" %}
-                {% for image in images %}
-                        <picture>
-                        <source srcset="{{ image.path | replace_first: image.extname, ".webp" }}" type="image/webp">
-                         <img src="{{ image.path }}" class="img-fluid img-thumbnail" alt="{{ image.name }}">
-                        </picture>
-                {% endfor %}
+        {% for gallery in site.details %}
+        <div class="col-md-3 justify-content-center">
+            <div class="card mx-auto" style="width: 16rem;">
+                <div class="card-body text-center">
+                    <a href="{{ gallery.url }}">
+                        <img src="/assets/images/galleries/{{ gallery.name }}/{{ gallery.name }}.png" 
+                            class="card-img-top pb-2" alt="{{ gallery.name }}" style="width: inherit;">
+                    </a>
+                    <a href="{{ gallery.url }}">
+                        <h5 class="card-title justify-content-center border-top pt-4">
+                            {{ gallery.name }}
+                        </h5>
+                    </a>
+                </div>
+            </div>
         </div>
+        {% endfor %}
     </div>
 </div>
