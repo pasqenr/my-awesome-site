@@ -11,11 +11,11 @@ title: Gallery
         <div class="col-md-3 justify-content-center">
             <div class="card mx-auto" style="width: 16rem;">
                 <div class="card-body text-center">
-                    <a href="{{ gallery.url }}">
-                        <img src="/assets/images/galleries/{{ gallery.name }}/{{ gallery.name }}.png" 
+                    <a href="{{ gallery.url | relative_url }}">
+                        <img src="{{ '' | relative_url}}/assets/images/galleries/{{ gallery.name }}/{{ gallery.name }}.png" 
                             class="card-img-top pb-2" alt="{{ gallery.name }}" style="width: inherit;">
                     </a>
-                    <a href="{{ gallery.url }}">
+                    <a href="{{ gallery.url | relative_url }}">
                         <h5 class="card-title justify-content-center border-top pt-4">
                             {{ gallery.name }}
                         </h5>
