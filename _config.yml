@@ -44,7 +44,11 @@ defaults:
       is_gallery_image: true
 
 collections:
-  details:
+  worlds:
+    output: true
+  galleries:
+    output: true
+  characters:
     output: true
 
 exclude: [
@@ -57,6 +61,11 @@ exclude: [
   "package.json",
   "package-lock.json",
   "vendor",
+  "CREA_GALLERIA.py",
+  "CREA_SITO.bat",
+  "GUARDA_SITO.bat",
+  "LICENSE",
+  "README.md",
 ]
 
 # Exclude from processing.
