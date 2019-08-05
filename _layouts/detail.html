@@ -12,11 +12,11 @@ title: Detail
         <div class="col-md-1"></div>
         <div class="col-md-4 align-self-center border-right text-md-center">
             <img src="{{ '' | relative_url}}/assets/images/galleries/{{ page.name }}/{{ page.name }}.png" class="rounded-circle" 
-                alt="{{ page.name }}" style="max-height: 14rem;">
+                alt="{{ page.name }}" style="max-height: 14rem; max-width: 14rem;">
         </div>
 
         <div class="col-md-6 align-self-start">
-            <div style="height: 14rem; width: auto; overflow: overlay; list-style-type: none;">
+            <div style="height: 14rem; width: auto; overflow: auto; list-style-type: none;">
                 {{ content }}
             </div>
         </div>
@@ -34,7 +34,7 @@ title: Detail
             {% for image in images %}
             {% if image.path contains page.name %}
             <a href="{{ image.path | relative_url }}" style="text-decoration: none;">
-                <img src="{{ image.path | relative_url }}" class="img-fluid img-thumbnail" alt="{{ image.name }}">
+                <img src="{{ image.path | relative_url }}" class="img-fluid img-thumbnail" alt="{{ image.name }}" style="max-height: 14rem; max-width: 14rem;">
             </a>
             {% endif %}
             {% endfor %}

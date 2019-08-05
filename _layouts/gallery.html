@@ -13,7 +13,7 @@ title: Gallery
                 <div class="card-body text-center">
                     <a href="{{ gallery.url | relative_url }}">
                         <img src="{{ '' | relative_url}}/assets/images/galleries/{{ gallery.name }}/{{ gallery.name }}.png" 
-                            class="card-img-top pb-2" alt="{{ gallery.name }}" style="width: inherit;">
+                            class="card-img-top pb-2" alt="{{ gallery.name }}" style="max-height: 14rem; max-width: 14rem;">
                     </a>
                     <a href="{{ gallery.url | relative_url }}">
                         <h5 class="card-title justify-content-center border-top pt-4">
