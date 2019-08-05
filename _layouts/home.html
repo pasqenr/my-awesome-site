@@ -9,7 +9,7 @@ layout: default
         <div class="col-5"></div>
         <div class="col-2">
             <picture>
-                <img src="{{ '/assets/images/avatar.png' | relative_url }}" class="rounded-circle" alt="Avatar"
+                <img src="{{ '/assets/images/frontpage.png' | relative_url }}" class="rounded-circle" alt="Avatar"
                     style="max-height: 14rem">
             </picture>
         </div>
@@ -21,18 +21,11 @@ layout: default
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark justify-content-center">
     <ul class="navbar-nav">
-        <li class="nav-item">
-        {% for page in site.pages %}
-            {% if page.url contains 'gallery' %}
-                <a href="{{ page.url | relative_url }}" class="nav-link"><h1>Gallery</h1></a>
-            {% endif %}
-        {% endfor %}
-        </li>
-    {% for link in site.details %}
-        <li class="nav-item">
-            <a href="{{ link.url | relative_url }}" class="nav-link">
-                <h1>{{ link.name }}</h1>
-            </a>
+    {% for world in site.worlds %}
+        <li  class="nav-item">
+            <h1>
+                <a href="{{ world.url | relative_url }}" class="nav-link">{{ world.name }}</a>
+            </h1>
         </li>
     {% endfor %}
     </ul>
