@@ -57,6 +57,7 @@ class MainFrame(wx.Frame):
 
         for root, folders, files in os.walk(galleries_path):
             for folder in folders:
+                print(folder)
                 if root == galleries_path:
                     self.combo_box_gallery.Append(folder)
 
@@ -167,18 +168,32 @@ class MainFrame(wx.Frame):
             new_name = self.text_ctrl_world.GetValue()
             self.selected_world = new_name
 
-            if new_name is None:
-                print('Please add new world name')
-            elif os.path.isdir(f"./assets/images/worlds/{new_name}"):
-                print('World already exists')
-            else:
-                md_path = f"./_worlds/{new_name}"
-                dir_path = f"./assets/images/worlds/{new_name}"
+            md_path = f"./_worlds/{new_name}.md"
+            dir_path = f"./assets/images/worlds/{new_name}"
 
-                with open(md_path, 'w') as md_file:
-                    md_file.write(f"---\nlayout: worlds\npermalink: /:name/\nname: {slugify(new_name)}\n---")
+            if new_name is None:
+                wx.MessageBox(parent=self, message='Please add new world name', 
+                    caption='Error', style=wx.OK|wx.ICON_ERROR)
+                return
+        
+            if os.path.isfile(md_path):
+                wx.MessageBox(parent=self, message='World file already exists, please choose a different name', 
+                    caption='Error', style=wx.OK|wx.ICON_ERROR)
+                return
+            
+            if os.path.isdir(dir_path):
+                wx.MessageBox(parent=self, message='World already exists, please choose a different name', 
+                    caption='Error', style=wx.OK|wx.ICON_ERROR)
+                return
+
+            with open(md_path, 'w') as md_file:
+                md_file.write(f"---\nlayout: worlds\npermalink: /:name/\nname: {slugify(new_name)}\n---")
                 
-                os.mkdir(dir_path)
+            os.mkdir(dir_path)
+            wx.MessageBox(parent=self, message=f"World {new_name} created successfully", 
+                    caption='Success', style=wx.OK|wx.ICON_INFORMATION)
+            self.selected_world = new_name
+            self.__load_combo_box_gallery()
         else:
             self.selected_world = selection
             self.__load_combo_box_gallery()
@@ -186,184 +201,38 @@ class MainFrame(wx.Frame):
     def create_gallery(self, event):  # wxGlade: MainFram.<event_handler>
         event.Skip()
         gallery_name = self.text_ctrl_gallery.GetValue()
-        md_file_path = f"./_details/{gallery_name}.md"
-        dir_path = f"./assets/images/galleries/{gallery_name}"
+        md_path = f"./_galleries/{gallery_name}.md"
+        dir_path = f"./assets/images/worlds/{self.selected_world}/{gallery_name}"
 
         if not gallery_name:
-            errorDialog = ErrorDialog(None)
-            errorDialog.Show()
-        else:
-            if os.path.isfile(md_file_path):
-                dialog = ErrorDialogFileExists(None)
-                dialog.Show()
-                return
+            wx.MessageBox(parent=self, message='Please add new gallery name', 
+                caption='Error', style=wx.OK|wx.ICON_ERROR)
+            return
+        
+        if os.path.isfile(md_path):
+            wx.MessageBox(parent=self, message='Gallery file already exists, please choose a different name', 
+                caption='Error', style=wx.OK|wx.ICON_ERROR)
+            return
             
-            if os.path.isdir(dir_path):
-                dialog = ErrorDialogDirExists(None)
-                dialog.Show()
-                return
+        if os.path.isdir(dir_path):
+            wx.MessageBox(parent=self, message='Gallery directory already exists, please choose a different name', 
+                caption='Error', style=wx.OK|wx.ICON_ERROR)
+            return
 
-            with open(md_file_path, 'w') as md_file:
-                md_file.write(f"---\nlayout: detail\nname: {gallery_name}\n---\n\nWRITE_DESCRIPTION_HERE")
+        with open(md_path, 'w') as md_file:
+            md_file.write(f"---\nlayout: detail\nname: {gallery_name}\n---\n\nWRITE_DESCRIPTION_HERE")
             
-            os.mkdir(dir_path)
+        os.mkdir(dir_path)
 
-            successDialog = SuccessDialog(None)
-            successDialog.Show()
+        wx.MessageBox(parent=self, message=f"Gallery {gallery_name} created successfully", 
+            caption='Success', style=wx.OK|wx.ICON_INFORMATION)
     
     def create_character(self, event):  # wxGlade: MainFram.<event_handler>
         print("Event handler 'create_character' not implemented!")
         event.Skip()
-        
+
 
 # end of class MainFrame
-
-class ErrorDialog(wx.Dialog):
-    def __init__(self, *args, **kwds):
-        # begin wxGlade: ErrorDialog.__init__
-        kwds["style"] = kwds.get("style", 0) | wx.DEFAULT_DIALOG_STYLE
-        wx.Dialog.__init__(self, *args, **kwds)
-
-        self.__set_properties()
-        self.__do_layout()
-        # end wxGlade
-
-    def __set_properties(self):
-        # begin wxGlade: ErrorDialog.__set_properties
-        self.SetTitle("Errore")
-        # end wxGlade
-
-    def __do_layout(self):
-        # begin wxGlade: SuccessDialog.__do_layout
-        grid_sizer_3 = wx.GridSizer(3, 3, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        label_3 = wx.StaticText(self, wx.ID_ANY, "Errore! Nome della galleria vuoto!", style=wx.ALIGN_CENTER)
-        label_3.SetFont(wx.Font(14, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, "Segoe UI"))
-        grid_sizer_3.Add(label_3, 0, wx.ALIGN_CENTER, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        self.SetSizer(grid_sizer_3)
-        grid_sizer_3.Fit(self)
-        self.Layout()
-        # end wxGlade
-
-# end of class ErrorDialog
-
-
-class ErrorDialogFileExists(wx.Dialog):
-    def __init__(self, *args, **kwds):
-        # begin wxGlade: ErrorDialog.__init__
-        kwds["style"] = kwds.get("style", 0) | wx.DEFAULT_DIALOG_STYLE
-        wx.Dialog.__init__(self, *args, **kwds)
-
-        self.__set_properties()
-        self.__do_layout()
-        # end wxGlade
-
-    def __set_properties(self):
-        # begin wxGlade: ErrorDialog.__set_properties
-        self.SetTitle("Errore")
-        # end wxGlade
-
-    def __do_layout(self):
-        # begin wxGlade: SuccessDialog.__do_layout
-        grid_sizer_3 = wx.GridSizer(3, 3, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        label_3 = wx.StaticText(self, wx.ID_ANY, "Errore! La scheda della galleria esiste già!", style=wx.ALIGN_CENTER)
-        label_3.SetFont(wx.Font(14, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, "Segoe UI"))
-        grid_sizer_3.Add(label_3, 0, wx.ALIGN_CENTER, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        self.SetSizer(grid_sizer_3)
-        grid_sizer_3.Fit(self)
-        self.Layout()
-        # end wxGlade
-
-# end of class ErrorDialog
-
-
-class ErrorDialogDirExists(wx.Dialog):
-    def __init__(self, *args, **kwds):
-        # begin wxGlade: ErrorDialog.__init__
-        kwds["style"] = kwds.get("style", 0) | wx.DEFAULT_DIALOG_STYLE
-        wx.Dialog.__init__(self, *args, **kwds)
-
-        self.__set_properties()
-        self.__do_layout()
-        # end wxGlade
-
-    def __set_properties(self):
-        # begin wxGlade: ErrorDialog.__set_properties
-        self.SetTitle("Errore")
-        # end wxGlade
-
-    def __do_layout(self):
-        # begin wxGlade: SuccessDialog.__do_layout
-        grid_sizer_3 = wx.GridSizer(3, 3, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        label_3 = wx.StaticText(self, wx.ID_ANY, "Errore! La cartella della galleria esiste già!", style=wx.ALIGN_CENTER)
-        label_3.SetFont(wx.Font(14, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, "Segoe UI"))
-        grid_sizer_3.Add(label_3, 0, wx.ALIGN_CENTER, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        self.SetSizer(grid_sizer_3)
-        grid_sizer_3.Fit(self)
-        self.Layout()
-        # end wxGlade
-
-# end of class ErrorDialog
-
-
-class SuccessDialog(wx.Dialog):
-    def __init__(self, *args, **kwds):
-        # begin wxGlade: SuccessDialog.__init__
-        kwds["style"] = kwds.get("style", 0) | wx.DEFAULT_DIALOG_STYLE
-        wx.Dialog.__init__(self, *args, **kwds)
-
-        self.__set_properties()
-        self.__do_layout()
-        # end wxGlade
-
-    def __set_properties(self):
-        # begin wxGlade: SuccessDialog.__set_properties
-        self.SetTitle("Successo")
-        # end wxGlade
-
-    def __do_layout(self):
-        # begin wxGlade: SuccessDialog.__do_layout
-        grid_sizer_3 = wx.GridSizer(3, 3, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        label_3 = wx.StaticText(self, wx.ID_ANY, "Galleria creata correttamente!", style=wx.ALIGN_CENTER)
-        label_3.SetFont(wx.Font(14, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, 0, "Segoe UI"))
-        grid_sizer_3.Add(label_3, 0, wx.ALIGN_CENTER, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        grid_sizer_3.Add((0, 0), 0, 0, 0)
-        self.SetSizer(grid_sizer_3)
-        grid_sizer_3.Fit(self)
-        self.Layout()
-        # end wxGlade
-
-# end of class SuccessDialog
 
 
 class MyApp(wx.App):
