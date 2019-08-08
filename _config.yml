@@ -33,15 +33,15 @@ sass:
 
 webp:
   enabled: true
-  img_dir: ["assets/images/gallery/"] # Unused
+  img_dir: ["assets/images/worlds/"] # Unused
   webp_path: "/usr/bin/"
 
 defaults:
   - scope:
-      path: "assets/images/gallery"
+      path: "assets/images/worlds"
     values:
       image: true
-      is_gallery_image: true
+      is_worlds_image: true
 
 collections:
   worlds:
