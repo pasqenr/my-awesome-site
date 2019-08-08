@@ -13,6 +13,6 @@ assets/images/**/*.psd
 assets/images/**/*.tiff
 assets/images/**/*.webp
 assets/images/**/*.gif
+!assets/images/skeletons/**
 
 /_sass/bootstrap
-/_details/*
