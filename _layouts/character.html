@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Detail
+title: Character
 ---
 
 <div class="container-fluid">
@@ -30,9 +30,9 @@ title: Detail
     <div class="row justify-content-center">
         <div class="col-md-1"></div>
         <div id="lightgallery" class="col-md-10">
-            {% assign images = site.static_files | where_exp: "item", "item.extname == '.png'" %}
+            {% assign images = site.static_files | where_exp: "item", "item.extname == '.png'" | where: "is_worlds_image", true %}
             {% for image in images %}
-                {% if image.path contains page.gallery_name and image.basename != page.name and image.basename != page.gallery_name %}
+                {% if image.path contains page.url and image.basename != page.name and image.basename != page.gallery_name %}
                 <a href="{{ image.path | relative_url }}" style="text-decoration: none;">
                     <img src="{{ image.path | relative_url }}" class="img-fluid img-thumbnail" alt="{{ image.name }}" style="max-height: 14rem; max-width: 14rem;">
                 </a>
