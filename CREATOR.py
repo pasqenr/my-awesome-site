@@ -182,7 +182,7 @@ class MainFrame(wx.Frame):
                 return
 
             with open(md_path, 'w') as md_file:
-                md_file.write(f"---\nlayout: worlds\npermalink: /:name/\nname: {slugify(new_name)}\n---")
+                md_file.write(f"---\nlayout: worlds\npermalink: /:name/\nname: {new_name}\n---")
                 
             os.mkdir(dir_path)
             wx.MessageBox(parent=self, message=f"World {new_name} created successfully", 
@@ -213,7 +213,7 @@ class MainFrame(wx.Frame):
             return
 
         with open(md_path, 'w') as md_file:
-            md_file.write(f"---\nlayout: gallery\nname: {gallery_name}\n---")
+            md_file.write(f"---\nlayout: gallery\npermalink: /{slugify(self.selected_world)}/:name\nname: {gallery_name}\nworld_name: {self.selected_world}\n---")
             
         os.mkdir(dir_path)
         self.selected_gallery = gallery_name
@@ -242,7 +242,7 @@ class MainFrame(wx.Frame):
             return
     
         with open(md_path, 'w') as md_file:
-            md_file.write(f"---\nlayout: character\nname: {new_name}\n---\n\nWRITE_DESCRIPTION_HERE")
+            md_file.write(f"---\nlayout: character\npermalink: /{slugify(self.selected_world)}/{slugify(self.selected_gallery)}/:name\nname: {new_name}\nworld_name: {self.selected_world}\ngallery_name: {self.selected_gallery}\n---\n\nDESCRIPTION HERE (MARKDOWN ALLOWED)")
         
         os.mkdir(dir_path)
         self.selected_character = new_name
