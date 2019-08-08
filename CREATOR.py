@@ -3,6 +3,7 @@
 import wx
 import os
 from slugify import slugify
+from shutil import copyfile
 
 # begin wxGlade: dependencies
 # end wxGlade
@@ -196,6 +197,8 @@ class MainFrame(wx.Frame):
         gallery_name = self.text_ctrl_gallery.GetValue()
         md_path = f"./_galleries/{gallery_name}.md"
         dir_path = f"./assets/images/worlds/{self.selected_world}/{gallery_name}"
+        skel_path = f"./assets/images/skeletons/gallery.png"
+        image_path = f"{dir_path}/{gallery_name}.png"
 
         if not gallery_name:
             wx.MessageBox(parent=self, message='Please add new gallery name', 
@@ -216,6 +219,7 @@ class MainFrame(wx.Frame):
             md_file.write(f"---\nlayout: gallery\npermalink: /{slugify(self.selected_world)}/:name\nname: {gallery_name}\nworld_name: {self.selected_world}\n---")
             
         os.mkdir(dir_path)
+        copyfile(skel_path, image_path)
         self.selected_gallery = gallery_name
 
         wx.MessageBox(parent=self, message=f"Gallery {gallery_name} created successfully", 
@@ -225,6 +229,8 @@ class MainFrame(wx.Frame):
         new_name = self.text_ctrl_character.GetValue()
         md_path = f"./_characters/{new_name}.md"
         dir_path = f"./assets/images/worlds/{self.selected_world}/{self.selected_gallery}/{new_name}"
+        skel_path = f"./assets/images/skeletons/gallery.png"
+        image_path = f"{dir_path}/{new_name}.png"
 
         if new_name is None:
             wx.MessageBox(parent=self, message='Please add new character name', 
@@ -245,6 +251,7 @@ class MainFrame(wx.Frame):
             md_file.write(f"---\nlayout: character\npermalink: /{slugify(self.selected_world)}/{slugify(self.selected_gallery)}/:name\nname: {new_name}\nworld_name: {self.selected_world}\ngallery_name: {self.selected_gallery}\n---\n\nDESCRIPTION HERE (MARKDOWN ALLOWED)")
         
         os.mkdir(dir_path)
+        copyfile(skel_path, image_path)
         self.selected_character = new_name
         
         wx.MessageBox(parent=self, message=f"Character {new_name} created successfully", 
