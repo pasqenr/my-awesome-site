@@ -31,27 +31,33 @@ bundle exec jekyll serve
 ```
 And browse to `http://localhost:4000`.
 
-## Create new galleries
+## Create new worlds, galleries and characters
 
-In order to add a gallery named `my_gallery`:
+To assist the user in the process of creating worlds, galleries and characters there is a tool: `CREATOR.py`.
 
-1) In the folder `_details` create a new file named `my_gallery.md` with the following content:
-    ```
-    ---
-    layout: detail
-    name: my_gallery  # This must be the gallery name chosen
-    ---
+### Prerequisites for CREATOR.py:
 
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas hendrerit rhoncus ipsum...
-    ```
+```
+Python >= 3
 
-2) Now go to `/assets/images/galleries/` and create a new folder named `my_gallery`;
+wxPython
+python-slugify
+```
 
-    2.1) Put all the images do you want;
+You can install those via `pip` using the command: `pip install -r requirements.txt`. Note that in Arch based distro it's better install them using `pacman`.
 
-    2.2) One image must be the displayed image in the gallery showcase. Name it (you can copy an image already inside and rename it) `my_gallery.png`. (Only `png` support for now);
+To start the tool simply use `python CREATOR.py` (or `python3 CREATOR.py` if the command `python` refers at version 2). Using the tool you can choose already existing worlds and galleries or creating new folders.
 
-3) Build the site:
+The worlds created are found in `assets/images/worlds` and, inside one of them, you can find the relative galleries as folders.
+
+### Customize
+
+* In a _gallery_ folder there is the default gallery image named as `gallery_name.png`. Replace it with the your image;
+* In a _character_ folder there is the default character image named as `character_name.png`. Replace it with the your image. Every other image placed in this folder will be shown in the bottom of the page.
+* To edit the description of a character open the file `_characters/character_name.md` and change the text `DESCRIPTION HERE (MARKDOWN ALLOWED)`. [Markdown is allowed (and recommended)](https://www.markdownguide.org/basic-syntax/).
+* You can use a image named `frontpage.png` placed in `assets/images/` that will be shown in the homepage.
+
+### Build the site:
     ```bash
     bundle exec jekyll build
     ```
