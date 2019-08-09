@@ -58,7 +58,7 @@ The worlds created are found in `assets/images/worlds` and, inside one of them, 
 * You can use a image named `frontpage.png` placed in `assets/images/` that will be shown in the homepage.
 
 ### Build the site:
- ```
+```
 bash
 bundle exec jekyll build
 ```
