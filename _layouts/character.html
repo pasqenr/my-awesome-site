@@ -11,7 +11,7 @@ title: Character
     <div class="row" style="height: 14rem;">
         <div class="col-md-1"></div>
         <div class="col-md-4 align-self-center border-right text-md-center">
-            <img src="{{ '' | relative_url}}/assets/images/worlds/{{ page.world_name }}/{{ page.gallery_name }}/{{ page.name}}/{{ page.name }}.png" class="rounded-circle" 
+            <img src="{{ '' | relative_url}}/assets/images/worlds/{{ page.world_name }}/{{ page.name}}/{{ page.name }}.png" class="rounded-circle" 
                 alt="{{ page.name }}" style="max-height: 14rem; max-width: 14rem;">
         </div>
 
@@ -32,11 +32,13 @@ title: Character
         <div id="lightgallery" class="col-md-10">
             {% assign images = site.static_files | where_exp: "item", "item.extname == '.png'" | where: "is_worlds_image", true %}
             {% for image in images %}
-                {% if image.path contains page.url and image.basename != page.name and image.basename != page.gallery_name %}
+            {% assign slugified_page_url = page.url | slugify %}
+            {% assign slugified_image_path = image.path | slugify %}
+            {% if slugified_image_path contains slugified_page_url and image.basename != page.name and image.basename != page.gallery_name %}
                 <a href="{{ image.path | relative_url }}" style="text-decoration: none;">
                     <img src="{{ image.path | relative_url }}" class="img-fluid img-thumbnail" alt="{{ image.name }}" style="max-height: 14rem; max-width: 14rem;">
                 </a>
-                {% endif %}
+            {% endif %}
             {% endfor %}
         </div>
         <div class="col-md-1"></div>

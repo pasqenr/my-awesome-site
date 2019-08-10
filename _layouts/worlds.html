@@ -7,22 +7,24 @@ title: Worlds
         <div class="row" style="height: 2rem;"></div>
     
         <div class="row justify-content-center">
-        {% for gallery in site.galleries %}
+            {% for character in site.characters %}
+            {% if character.url contains page.url %}
             <div class="col-md-3 justify-content-center">
                 <div class="card mx-auto" style="width: 16rem;">
                     <div class="card-body text-center">
-                        <a href="{{ gallery.url | relative_url }}">
-                            <img src="{{ '' | relative_url }}/assets/images/worlds/{{ gallery.world_name }}/{{ gallery.name }}/{{ gallery.name }}.png" 
-                                class="card-img-top pb-2" alt="{{ gallery.name }}" style="max-height: 14rem; max-width: 14rem;">
+                        <a href="{{ character.url | relative_url }}">
+                            <img src="{{ '' | relative_url }}/assets/images/worlds/{{ page.name }}/{{ character.name }}/{{ character.name }}.png" 
+                                class="card-img-top pb-2" alt="{{ character.name }}" style="max-height: 14rem; max-width: 14rem;">
                         </a>
-                        <a href="{{ gallery.url | relative_url }}">
+                        <a href="{{ character.url | relative_url }}">
                             <h5 class="card-title justify-content-center border-top pt-4">
-                                {{ gallery.name }}
+                                {{ character.name }}
                             </h5>
                         </a>
                     </div>
                 </div>
             </div>
+            {% endif %}
         {% endfor %}
         </div>
     </div>

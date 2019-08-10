@@ -46,8 +46,6 @@ defaults:
 collections:
   worlds:
     output: true
-  galleries:
-    output: true
   characters:
     output: true
 
