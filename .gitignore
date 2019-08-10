@@ -14,5 +14,6 @@ assets/images/**/*.tiff
 assets/images/**/*.webp
 assets/images/**/*.gif
 !assets/images/skeletons/**
+!assets/images/frontpage.png
 
 /_sass/bootstrap
